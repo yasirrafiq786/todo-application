@@ -2,16 +2,11 @@ import React from 'react';
 
 const TodoList = () => {
   return (
-  <table className="ui fixed table">
-      <thead>
-          <tr>
-              <th>User</th>
-              <th>Content</th>
-              <th>Status</th>
-          </tr>
-      </thead>
-      <tbody></tbody>
-  </table>
+    <div className="ui middle aligned divided list">
+        
+    
+
+    </div>
     )
 };
 
