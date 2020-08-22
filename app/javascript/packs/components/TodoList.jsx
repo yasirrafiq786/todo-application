@@ -1,15 +1,7 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import TodoItem from './TodoItem';
-import itemsList from '../apis/itemsList';
 
-const TodoList = () => {
-  const [items, setItems] = useState ([]);
-
-  useEffect (async () => {
-    const response = await itemsList.get ('/todo_items');
-    setItems (response.data);
-  }, []);
-
+const TodoList = props => {
   return (
     <React.Fragment>
       <div className="table-responsive">
@@ -24,9 +16,10 @@ const TodoList = () => {
             </tr>
           </thead>
           <tbody>
-            {items.map (item => (
+
+            {props.items.map (item => (
               <TodoItem
-                key={item.id}
+                id={item.id}
                 title={item.title}
                 complete={item.complete}
               />

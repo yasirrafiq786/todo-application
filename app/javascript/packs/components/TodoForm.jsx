@@ -1,11 +1,13 @@
 import React, {useRef} from 'react';
 import itemsList from '../apis/itemsList';
+import setAxiosHeaders from '../apis/axiosHeader';
 
 const TodoForm = props => {
   const titleRef = useRef ();
 
-  const handleSubmit = e => {
+  const handleSubmit = (e) => {
     e.preventDefault ();
+    
     itemsList
       .post ('/todo_items', {
         todo_item: {
@@ -14,7 +16,9 @@ const TodoForm = props => {
         },
       })
       .then (response => {
-        props.createTodoItem (response.data);
+        const todoItem = response.data;
+        props.createTodoItem (todoItem);
+        
       })
       .catch (error => console.log (error));
     e.target.reset ();

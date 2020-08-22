@@ -4,7 +4,7 @@ const TodoItem = props => {
   const [done, setDone] = useState (props.complete);
 
   return (
-    <tr className={`${done ? 'table-light' : ''}`}>
+    <tr className={`${done ? 'table-light' : ''}`} >
       <td>
         <svg
           className={`bi bi-check-circle ${done ? `text-success` : `text-muted`}`}
@@ -33,6 +33,7 @@ const TodoItem = props => {
           disabled={done}
           className="form-control"
           id={`todoItem__title-${props.id}`}
+          key={props.id}
         />
       </td>
       <td className="text-right">
@@ -42,9 +43,9 @@ const TodoItem = props => {
             defaultChecked={done}
             type="checkbox"
             className="form-check-input"
-            id={`complete-${props.id}`}
+            id={`complete-${props.key}`}
           />
-          <label className="form-check-label" htmlFor={`complete-${props.id}`}>
+          <label className="form-check-label" htmlFor={`complete-${props.key}`}>
             Complete?
           </label>
         </div>
