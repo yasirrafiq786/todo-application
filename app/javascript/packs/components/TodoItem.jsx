@@ -6,12 +6,12 @@ const TodoItem = props => {
 
   const handleDestroy = () => {
     const path = `/todo_items/${props.id}`;
-    const confirmed = confirm ("Are you sure?")
+    const confirmed = confirm ('Are you sure?');
     if (confirmed) {
-      itemsList.delete (path).then (response => console.log(response));
-      props.deleteItem(props.id)
+      itemsList.delete (path).then (response => {
+        props.deleteItem (props.id);
+      });
     }
-    
   };
 
   return (
@@ -59,10 +59,7 @@ const TodoItem = props => {
             Complete?
           </label>
         </div>
-        <button
-          onClick={handleDestroy}
-          className="btn btn-outline-danger"
-        >
+        <button onClick={handleDestroy} className="btn btn-outline-danger">
           Delete
         </button>
       </td>

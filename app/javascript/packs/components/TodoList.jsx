@@ -2,6 +2,10 @@ import React from 'react';
 import TodoItem from './TodoItem';
 
 const TodoList = props => {
+  const deleteItem = id => {
+    props.deleteItem (id);
+  };
+
   return (
     <React.Fragment>
       <div className="table-responsive">
@@ -21,6 +25,7 @@ const TodoList = props => {
                 id={item.id}
                 title={item.title}
                 complete={item.complete}
+                deleteItem={deleteItem}
               />
             </tbody>
           ))}
