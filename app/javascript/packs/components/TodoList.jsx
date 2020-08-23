@@ -15,16 +15,15 @@ const TodoList = props => {
               </th>
             </tr>
           </thead>
-          <tbody>
-
-            {props.items.map (item => (
+          {props.items.map (item => (
+            <tbody key={item.id}>
               <TodoItem
                 id={item.id}
                 title={item.title}
                 complete={item.complete}
               />
-            ))}
-          </tbody>
+            </tbody>
+          ))}
         </table>
       </div>
     </React.Fragment>

@@ -5,23 +5,18 @@ import setAxiosHeaders from '../apis/axiosHeader';
 const TodoForm = props => {
   const titleRef = useRef ();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async e => {
     e.preventDefault ();
-    
-    itemsList
-      .post ('/todo_items', {
-        todo_item: {
-          title: titleRef.current.value,
-          complete: false,
-        },
-      })
-      .then (response => {
-        const todoItem = response.data;
-        props.createTodoItem (todoItem);
-        
-      })
-      .catch (error => console.log (error));
-    e.target.reset ();
+
+    const response = await itemsList.post ('/todo_items', {
+      todo_item: {
+        title: titleRef.current.value,
+        complete: false,
+      },
+    });
+    const todoItem = response.data;
+    props.createTodoItem (todoItem);
+    titleRef.current.value = '';
   };
 
   return (
