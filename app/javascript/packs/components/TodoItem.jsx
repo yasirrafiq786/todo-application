@@ -1,11 +1,14 @@
-import React, {useState} from 'react';
+import React, {useState, useRef} from 'react';
 import itemsList from '../apis/itemsList';
+import _ from 'lodash';
 
 const TodoItem = props => {
+  const inputRef = useRef ();
+  const completedRef = useRef ();
   const [done, setDone] = useState (props.complete);
 
+  const path = `/todo_items/${props.id}`;
   const handleDestroy = () => {
-    const path = `/todo_items/${props.id}`;
     const confirmed = confirm ('Are you sure?');
     if (confirmed) {
       itemsList.delete (path).then (response => {
@@ -13,6 +16,22 @@ const TodoItem = props => {
       });
     }
   };
+
+  const handleChange = () => {
+    update ();
+  };
+
+  const update = _.debounce (() => {
+    setDone (completedRef.current.checked);
+    itemsList
+      .patch (path, {
+        todo_item: {
+          title: inputRef.current.value,
+          complete: completedRef.current.checked,
+        },
+      })
+      .then (response => {});
+  }, 1000);
 
   return (
     <tr className={`${done ? 'table-light' : ''}`}>
@@ -42,6 +61,8 @@ const TodoItem = props => {
           type="text"
           defaultValue={props.title}
           disabled={done}
+          ref={inputRef}
+          onChange={handleChange}
           className="form-control"
           id={`todoItem__title-${props.id}`}
         />
@@ -51,11 +72,13 @@ const TodoItem = props => {
           <input
             type="boolean"
             defaultChecked={done}
+            ref={completedRef}
+            onChange={handleChange}
             type="checkbox"
             className="form-check-input"
-            id={`complete-${props.key}`}
+            id={`complete-${props.id}`}
           />
-          <label className="form-check-label" htmlFor={`complete-${props.key}`}>
+          <label className="form-check-label" htmlFor={`complete-${props.id}`}>
             Complete?
           </label>
         </div>
