@@ -6,6 +6,7 @@ import _ from 'lodash';
 
 const App = () => {
   const [items, setItems] = useState ([]);
+  const [hideCompletedTodoItems, setHideCompletedTodoItems] = useState (false);
 
   useEffect (() => {
     const fetchItems = async () => {
@@ -27,11 +28,20 @@ const App = () => {
     setItems (updatedArray);
   };
 
+  const toggleCompletedTodoItems = () => {
+    setHideCompletedTodoItems (!hideCompletedTodoItems);
+  };
+
   return (
     <React.Fragment>
 
       <TodoForm createTodoItem={createTodoItem} />
-      <TodoList items={items} deleteItem={deleteItem} />
+      <TodoList
+        items={items}
+        deleteItem={deleteItem}
+        toggleCompletedTodoItems={toggleCompletedTodoItems}
+        hideCompletedTodoItems={hideCompletedTodoItems}
+      />
 
     </React.Fragment>
   );

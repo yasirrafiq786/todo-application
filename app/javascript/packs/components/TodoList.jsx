@@ -2,12 +2,25 @@ import React from 'react';
 import TodoItem from './TodoItem';
 
 const TodoList = props => {
+  const handleClick = () => {
+    props.toggleCompletedTodoItems ();
+  };
+
   const deleteItem = id => {
     props.deleteItem (id);
   };
 
   return (
     <React.Fragment>
+      <hr />
+      <button
+        className="btn btn-outline-primary btn-block mb-3"
+        onClick={handleClick}
+      >
+        {props.hideCompletedTodoItems
+          ? `Show Completed Items`
+          : `Hide Completed Items `}
+      </button>
       <div className="table-responsive">
         <table className="table">
           <thead>
@@ -26,6 +39,7 @@ const TodoList = props => {
                 title={item.title}
                 complete={item.complete}
                 deleteItem={deleteItem}
+                hideCompletedTodoItems={props.hideCompletedTodoItems}
               />
             </tbody>
           ))}

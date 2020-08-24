@@ -34,7 +34,9 @@ const TodoItem = props => {
   }, 1000);
 
   return (
-    <tr className={`${done ? 'table-light' : ''}`}>
+    <tr
+      className={`${done && props.hideCompletedTodoItems ? 'd-none' : ''} ${done ? 'table-light' : ''}`}
+    >
       <td>
         <svg
           className={`bi bi-check-circle ${done ? `text-success` : `text-muted`}`}
