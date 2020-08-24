@@ -14,6 +14,7 @@ const TodoForm = props => {
         complete: false,
       },
     });
+    
     const todoItem = response.data;
     props.createTodoItem (todoItem);
     titleRef.current.value = '';
